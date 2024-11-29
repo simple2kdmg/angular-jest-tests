@@ -41,10 +41,21 @@ describe('AppComponent', (): void => {
 
     it(`with fake async`, fakeAsync(() => {
         fixture.detectChanges();
-        tick(component.DEBOUNCE_MS);
+        tick(component.DEBOUNCE_MS + 10);
         fixture.detectChanges();
 
         expect(pageObject.data).toBeTruthy();
+    }));
+
+    it(`with fake async and whenStable`, fakeAsync(() => {
+        fixture.detectChanges();
+
+        expect(component.loading).toEqual(true);
+
+        fixture.whenStable().then(() => {
+            expect(component.loading).toEqual(false);
+            expect(pageObject.data.nativeElement.textContent).toEqual('DATA');
+        });
     }));
 
     it(`with real async`, async () => {

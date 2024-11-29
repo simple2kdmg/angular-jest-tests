@@ -1,0 +1,7 @@
+<h3>Root component</h3>
+
+@let data = data$ | async ;
+
+@if (!loading) {
+    <div data-testing-id="data">{{ data }}</div>
+}
